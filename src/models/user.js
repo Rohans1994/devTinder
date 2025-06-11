@@ -30,17 +30,23 @@ const userSchema = mongoose.Schema(
     },
     age: {
       type: Number,
-      required: true,
       min: 18,
     },
     gender: {
       type: String,
-      required: true,
       validate(value) {
         if (!["male", "female", "others"].includes(value)) {
           throw new Error("Gender data is not valid");
         }
       },
+    },
+    imageUrl: {
+      type: String,
+      default:
+        "https://img.freepik.com/premium-vector/default-avatar-profile-icon-social-media-user-image-gray-avatar-icon-blank-profile-silhouette-vector-illustration_561158-3467.jpg",
+    },
+    aboutUs: {
+      type: String,
     },
   },
   {

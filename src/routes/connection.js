@@ -3,6 +3,8 @@ const { userAuth } = require("../middlewares/auth");
 const connectionRouter = express.Router();
 const ConnectionModel = require("../models/connection");
 
+// post request to send a connection request
+// This endpoint allows a user to send a connection request to another user
 connectionRouter.post(
   "/request/:status/:toUserId",
   userAuth,

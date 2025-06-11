@@ -12,11 +12,17 @@ const validateSignUpData = (req) => {
 };
 
 const validateEditData = (req) => {
-  const validFields = ["firstName", "lastName", "age", "gender"];
+  const validFields = [
+    "firstName",
+    "lastName",
+    "age",
+    "gender",
+    "imageUrl",
+    "aboutUs",
+  ];
   const isValid = Object.keys(req.body).every((key) =>
     validFields.includes(key)
   );
-  console.log(`isValid - ${isValid}`);
   if (!isValid) {
     throw new Error("Requested fields cannot be edited");
   }

@@ -10,7 +10,7 @@ userRouter.get("/user/request/received", userAuth, async (req, res) => {
     const requestReceived = await ConnectionModel.find({
       toUserId: loggedInUser._id,
       status: "interested",
-    }).populate("fromUserId", ["firstName", "lastName"]); // Populate with user details
+    }).populate("fromUserId", ["firstName", "lastName", "imageUrl", "aboutUs"]); // Populate with user details
     if (requestReceived.length) {
       res.json({
         message: "Connection requests received successfully",
@@ -33,8 +33,8 @@ userRouter.get("/user/connections", userAuth, async (req, res) => {
         { toUserId: loggedInUser._id, status: "accepted" },
       ],
     })
-      .populate("fromUserId", ["firstName", "lastName"])
-      .populate("toUserId", ["firstName", "lastName"]);
+      .populate("fromUserId", ["firstName", "lastName", "imageUrl", "aboutUs"])
+      .populate("toUserId", ["firstName", "lastName", "imageUrl", "aboutUs"]);
     if (connections.length) {
       const data = connections.map((connection) => {
         if (

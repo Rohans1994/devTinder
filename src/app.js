@@ -3,6 +3,7 @@ const app = express();
 const connectDB = require("./config/database");
 const User = require("./models/user");
 const cookieParser = require("cookie-parser");
+const cors = require("cors");
 const authRouter = require("./routes/auth");
 const profileRouter = require("./routes/profile");
 const connectionRouter = require("./routes/connection");
@@ -10,6 +11,12 @@ const userRouter = require("./routes/user");
 
 app.use(express.json());
 app.use(cookieParser());
+app.use(
+  cors({
+    origin: "http://localhost:5173", // Replace with your frontend URL
+    credentials: true, // Allow cookies to be sent
+  })
+);
 
 app.use("/", authRouter, profileRouter, connectionRouter, userRouter);
 
