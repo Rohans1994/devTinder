@@ -8,6 +8,7 @@ const authRouter = require("./routes/auth");
 const profileRouter = require("./routes/profile");
 const connectionRouter = require("./routes/connection");
 const userRouter = require("./routes/user");
+require("dotenv").config();
 
 app.use(express.json());
 app.use(cookieParser());
@@ -121,7 +122,7 @@ app.use((req, res) => {
 connectDB()
   .then((data) => {
     console.log("DB connected successfully");
-    app.listen(3000, (req, res) => {
+    app.listen(process.env.PORT, (req, res) => {
       console.log("Server started successfully");
     });
   })

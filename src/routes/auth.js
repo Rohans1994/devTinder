@@ -38,7 +38,7 @@ authRouter.post("/login", async (req, res) => {
     if (!result) {
       throw new Error("Invalid Credentials");
     }
-    // const token = await jwt.sign({_id: user._id}, "rohansecret@123", {expiresIn: '1h'});          // This is also the best way to create JWT token
+    // const token = await jwt.sign({_id: user._id}, process.env.JWT, {expiresIn: '1h'});          // This is also the best way to create JWT token
     const token = await user.getJWT(); // We can also offload the JWT token creation directly to schema methods
     res.cookie("token", token, { expires: new Date(Date.now() + 8 * 3600000) }); // cookie will be removed after 8 hours
     res.send({ message: "Login Successful", data: user });
