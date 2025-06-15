@@ -8,8 +8,11 @@ const authRouter = require("./routes/auth");
 const profileRouter = require("./routes/profile");
 const connectionRouter = require("./routes/connection");
 const userRouter = require("./routes/user");
-require("dotenv").config();
+const http = require("http");
+const initializeSocket = require("./utils/socket");
+const chatRouter = require("./routes/chat");
 
+require("dotenv").config();
 app.use(express.json());
 app.use(cookieParser());
 app.use(
@@ -19,7 +22,17 @@ app.use(
   })
 );
 
-app.use("/", authRouter, profileRouter, connectionRouter, userRouter);
+app.use(
+  "/",
+  authRouter,
+  profileRouter,
+  connectionRouter,
+  userRouter,
+  chatRouter
+);
+
+const server = http.createServer(app);
+initializeSocket(server);
 
 app.get("/feed", async (req, res) => {
   try {
@@ -122,7 +135,7 @@ app.use((req, res) => {
 connectDB()
   .then((data) => {
     console.log("DB connected successfully");
-    app.listen(process.env.PORT, (req, res) => {
+    server.listen(process.env.PORT, (req, res) => {
       console.log("Server started successfully");
     });
   })
